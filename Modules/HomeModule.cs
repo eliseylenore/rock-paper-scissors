@@ -14,8 +14,14 @@ namespace GameApp
 
             Post["/play"] = _ => {
                 Game newGame = new Game();
-                string result = newGame.Play(Request.Form["playerOneInput"], Request.Form["playerTwoInput"]);
-                return View["index.cshtml", result];
+                var playerOne = Request.Form["playerOneInput"];
+                var playerTwo = Request.Form["playerTwoInput"];
+                string result = newGame.Play(playerOne, playerTwo);
+                Dictionary<string, string> model = new Dictionary<string, string>();
+                model.Add("winner", result);
+                model.Add("playerOne", playerOne);
+                model.Add("playerTwo", playerTwo);
+                return View["index.cshtml", model];
             };
         }
     }
